@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Calculator using HTML, CSS, Js</title>
+    <script>
+      function calculate() {
+        var display = document.getElementById("display");
+        var value = display.value;
+        if (value.includes("%")) {
+          // Split the input into the number and the percentage
+          var parts = value.split("%");
+          if (parts.length === 2) {
+            var number = parseFloat(parts[0]);
+            var percentage = parseFloat(parts[1]);
+            // Calculate the specific percentage
+            var result = calculateSpecificPercentage(number, percentage);
+            display.value = result;
+          } else {
+            display.value = "Error";
+          }
+        } else {
+          try {
+            // Replace 'X' with '*' for multiplication
+            value = value.replace(/X/g, "*");
+            // Evaluate the expression
+            var result = eval(value);
+            // Display the result
+            display.value = result;
+          } catch (e) {
+            // Display error message
+            display.value = "Error";
+          }
+        }
+      }
+
+      function clearDisplay() {
+        var display = document.getElementById("display");
+        display.value = "";
+      }
+
+      function backspace() {
+        var display = document.getElementById("display");
+        display.value = display.value.toString().slice(0, -1);
+      }
+      function calculateSpecificPercentage(number, percentage) {
+        var result = (parseFloat(number) * parseFloat(percentage)) / 100;
+        return result;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="calculator">
+        <form>
+          <div class="display">
+            <input type="text" name="display" id="display" />
+          </div>
+          <div class="buttons">
+            <button type="button" value="AC" onclick="clearDisplay()">
+              AC
+            </button>
+            <button type="button" value="DEL" onclick="backspace()">DEL</button>
+            <button type="button" value="%" onclick="display.value += '%'">
+              %
+            </button>
+            <button type="button" value="/" onclick="display.value += '/'">
+              /
+            </button>
+          </div>
+          <div class="buttons">
+            <button type="button" value="7" onclick="display.value += '7'">
+              7
+            </button>
+            <button type="button" value="8" onclick="display.value += '8'">
+              8
+            </button>
+            <button type="button" value="9" onclick="display.value += '9'">
+              9
+            </button>
+            <button type="button" value="X" onclick="display.value += 'X'">
+              X
+            </button>
+          </div>
+          <div class="buttons">
+            <button type="button" value="4" onclick="display.value += '4'">
+              4
+            </button>
+            <button type="button" value="5" onclick="display.value += '5'">
+              5
+            </button>
+            <button type="button" value="6" onclick="display.value += '6'">
+              6
+            </button>
+            <button type="button" value="-" onclick="display.value += '-'">
+              -
+            </button>
+          </div>
+          <div class="buttons">
+            <button type="button" value="1" onclick="display.value += '1'">
+              1
+            </button>
+            <button type="button" value="2" onclick="display.value += '2'">
+              2
+            </button>
+            <button type="button" value="3" onclick="display.value += '3'">
+              3
+            </button>
+            <button type="button" value="+" onclick="display.value += '+'">
+              +
+            </button>
+          </div>
+          <div class="buttons">
+            <button type="button" value="0" onclick="display.value += '0'">
+              0
+            </button>
+            <button type="button" value="." onclick="display.value += '.'">
+              .
+            </button>
+            <button type="button" value="=" onclick="calculate()" class="equal">
+              =
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
